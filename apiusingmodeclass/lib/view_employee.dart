@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
+import 'employee_model.dart';
 
 class ViewEmployee extends StatefulWidget {
   const ViewEmployee({super.key});
@@ -9,37 +10,26 @@ class ViewEmployee extends StatefulWidget {
 }
 
 class _ViewEmployeeState extends State<ViewEmployee> {
-  List<dynamic> empData = [];
+  List<Data> empData = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("API Binding"),
         centerTitle: true,
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.blue,
       ),
-      body: Column(
-        children: [
-          const Row(
-            children: [
-
-            ],
-          ),
-          Expanded(
-            child: ListView.builder(
-                itemCount: empData.length,
-                itemBuilder: (context, index) {
-                  return Row(
-                    children: [
-                      Text(empData[index]['employee_name']),
-                      const SizedBox(width: 10),
-                      Text("${empData[index]['employee_salary']}"),
-                    ],
-                  );
-                }),
-          ),
-        ],
-      ),
+      body: ListView.builder(
+          itemCount: empData.length,
+          itemBuilder: (context, index) {
+            return Row(
+              children: [
+                Text(empData[index].empName!),
+                const SizedBox(width: 10),
+                Text("${empData[index].empSalary!}"),
+              ],
+            );
+          }),
       floatingActionButton: FloatingActionButton(
         onPressed: getEmployeeData,
         child: const Icon(Icons.add),
@@ -51,8 +41,9 @@ class _ViewEmployeeState extends State<ViewEmployee> {
     Uri url = Uri.parse("https://dummy.restapiexample.com/api/v1/employees");
     http.Response response = await http.get(url);
     var responseData = json.decode(response.body);
+    EmployeeModel empModel = EmployeeModel(responseData);
     setState(() {
-      empData = responseData['data'];
+      empData = empModel.data!;
     });
   }
 }

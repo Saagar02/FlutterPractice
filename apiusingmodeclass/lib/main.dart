@@ -1,4 +1,4 @@
-import "package:apibindingdemo/single_data.dart";
+
 import "package:flutter/material.dart";
 import "view_employee.dart";
 
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ViewSingleEmployee(),
+      home: ViewEmployee(),
     );
   }
 }
