@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:music_app/Widgets/bottom_navigationbar.dart';
 
-class Favourite extends StatelessWidget{
-  const Favourite({super.key});
+class favouriteScreen extends StatelessWidget{
+  const favouriteScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const Scaffold(
+      bottomNavigationBar: MyBottomAppbar(),
+    );
   }
 }

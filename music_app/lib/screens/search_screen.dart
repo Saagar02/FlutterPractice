@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:music_app/Widgets/bottom_navigationbar.dart';
 
-class Search extends StatelessWidget{
-  const Search({super.key});
+class SearchScreen extends StatelessWidget {
+  const SearchScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return const Scaffold(
+      bottomNavigationBar: MyBottomAppbar(),
+    );
   }
 }
