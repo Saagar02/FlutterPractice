@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
 import 'employee_model.dart';
+import 'dart:developer';
 
 class ViewEmployee extends StatefulWidget {
   const ViewEmployee({super.key});
@@ -11,20 +12,21 @@ class ViewEmployee extends StatefulWidget {
 
 class _ViewEmployeeState extends State<ViewEmployee> {
   List<Data> empData = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("API Binding"),
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.red,
       ),
       body: ListView.builder(
           itemCount: empData.length,
           itemBuilder: (context, index) {
             return Row(
               children: [
-                Text(empData[index].empName!),
+                Text("${empData[index].empName}"),
                 const SizedBox(width: 10),
                 Text("${empData[index].empSalary!}"),
               ],
@@ -38,11 +40,13 @@ class _ViewEmployeeState extends State<ViewEmployee> {
   }
 
   void getEmployeeData() async {
+    log("in getEmployeeData");
     Uri url = Uri.parse("https://dummy.restapiexample.com/api/v1/employees");
     http.Response response = await http.get(url);
     var responseData = json.decode(response.body);
     EmployeeModel empModel = EmployeeModel(responseData);
     setState(() {
+      log("In setState");
       empData = empModel.data!;
     });
   }
